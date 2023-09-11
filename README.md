@@ -26,6 +26,10 @@ https://docs.platformio.org/en/latest/boards/ststm32/genericSTM32F407VET6.html
 
 
 
+Arduino library support list by PlatformIO - https://github.com/stm32duino/Arduino_Core_STM32
+
+
+
 
 Found :
 
