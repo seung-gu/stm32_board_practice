@@ -11,6 +11,7 @@ int main(){
   GPIOD->MODER |= GPIO_MODER_MODER15_0; // Set PD15 as output
 
   while(1){
+    
     //Turn on LEDs
     GPIOD->BSRR = 1<<12; //Set the BSRR bit 12 to 1 to turn on the LED
     for(uint32_t i=0;i<timer_count;i++){};
