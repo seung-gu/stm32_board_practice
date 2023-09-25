@@ -73,7 +73,7 @@ void enable_systick(){
     Enabling the interrupts here instead of a separate function since the interrupt registers are common with systick*/
     SCB->SHP[11] = SYSTICK_PRI; //This is a byte access
     SysTick->LOAD = RELOAD ; 
-    SysTick->CTRL &= ~(0b111);
+    SysTick->CTRL &= ~0b111;
     SysTick->CTRL |= ENABLE | INTEN | CLK_SRC;
     asm volatile("cpsie i"); //Enabling all interrupts with configurable priority
  }

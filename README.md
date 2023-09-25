@@ -42,3 +42,33 @@ The STM32F411xC/xE are fully software and feature compatible with the STM32F4 se
 and stm32f413 has the same schematic with stm32f411 series.
 
 Since stem32f413 board supports Arduino library, it seems possible to provide compitable Arduino code
+
+: Failed (Arduino library in stm32f411 disco board doesn't work)
+
+
+
+
+
+
+SonarLint installation
+
+
+
+under .vscode, settings.json file needs to be created and :
+
+{
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json"
+}
+
+
+should be added
+
+
+and select PlatformIO (tool bar on the left) -> Advanced -> Compilation Database
+
+then, compile_commands.json filed will be created outside. This file needs to be added in gitignore due to absolute paths 
+
+
+Sonarcloud can be also linked to sonarqube to check the quality of the code in cloud.
+
+Register in https://sonarcloud.io, and link to github
