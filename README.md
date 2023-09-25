@@ -61,12 +61,14 @@ under .vscode, settings.json file needs to be created and :
 }
 
 
-should be added
+should be added.
 
 
 and select PlatformIO (tool bar on the left) -> Advanced -> Compilation Database
 
-then, compile_commands.json filed will be created outside. This file needs to be added in gitignore due to absolute paths 
+then, compile_commands.json filed will be created outside. This file needs to be added in gitignore due to absolute paths.
+
+Refer to : https://github.com/platformio/platformio-core/issues/4219 
 
 
 Sonarcloud can be also linked to sonarqube to check the quality of the code in cloud.
