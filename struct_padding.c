@@ -57,25 +57,25 @@ typedef struct
 
 
 int main(){
-    PLL_Init_84MHZ();
-    #define STRUCT memory_map_unaligned_packed
-    STRUCT * EXTRACT_DATA, struct_with_space;
-    STRUCT * SPACE_DATA = &struct_with_space;
-    SPACE_DATA->first_element= 0xAA;
-    SPACE_DATA->second_element= 0xAABB;
-    SPACE_DATA->third_element= 0xAABBCCDD;
-    SPACE_DATA->fourth_element= 0xAABB;
-    uint8_t first_read = SPACE_DATA->first_element;
-    uint16_t second_read = SPACE_DATA->second_element;
-    uint32_t third_read = SPACE_DATA->third_element;
-    uint16_t fourth_read = SPACE_DATA->fourth_element;
-    EXTRACT_DATA = (STRUCT *) &data_buffer_in;
-    uint32_t array_size = sizeof(STRUCT);
-    uint32_t first = EXTRACT_DATA->first_element;
-    uint32_t second = EXTRACT_DATA->second_element;
-    uint32_t third = EXTRACT_DATA->third_element;
-    uint32_t fourth = EXTRACT_DATA->fourth_element;
+  PLL_Init_84MHZ();
 
-    return 0;
+  #define STRUCT memory_map_unaligned_packed
+// type in debug console : "set output-radix 16" to see the values in hex
+  
+  STRUCT *EXTRACT_DATA, struct_with_space;
+  STRUCT *SPACE_DATA = &struct_with_space;
+  SPACE_DATA->first_element = 0xAA;
+  SPACE_DATA->second_element = 0xAABB;
+  SPACE_DATA->third_element = 0xAABBCCDD;
+  SPACE_DATA->fourth_element = 0xAABB;
+
+  EXTRACT_DATA = (STRUCT *) &data_buffer_in;
+  uint32_t array_size = sizeof(STRUCT);
+  uint32_t first = EXTRACT_DATA->first_element;
+  uint32_t second = EXTRACT_DATA->second_element;
+  uint32_t third = EXTRACT_DATA->third_element;
+  uint32_t fourth = EXTRACT_DATA->fourth_element;
+  uint32_t LEDPINSCLR = ~(0xFF << 24);
+  return 0;
 }
 
