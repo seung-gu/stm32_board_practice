@@ -67,17 +67,37 @@ int main(){
     value2 = ADDRW(STK_LOAD);
 	*/
    
-    ///////////// Method 2 ////////////////////////////////
-    //memory_map_aligned * EXTRACT_DATA;
-    //EXTRACT_DATA = (memory_map_aligned *) &data_buffer_in;
+    ///////////// Method 2 CMSIS ////////////////////////////
     #define SysTick_BASE 0xE000E010UL
     #define SysTick ((My_SysTick_Type *) SysTick_BASE)
 
-    uint32_t value1 = SysTick->CTRL;
-    SysTick->CTRL = 5;
-    uint32_t value2 = SysTick->LOAD;
-    SysTick->LOAD = 0x000000FF;
+    SysTick->LOAD = 0x0;
+    uint32_t set4thbit = 0x1 << 3;
+    SysTick->LOAD |= set4thbit;
+    
+    // save values in registers
+    SysTick->LOAD = 0xFFFFFF; // = 0x00FFFFFF, 24~31 bits are reserved (read only)
+    uint32_t clear_bits = 0xFF << 16;
+    SysTick->LOAD &= ~clear_bits;
+    uint32_t bit_pattern = 0b01010101 << 16;
+    SysTick->LOAD |= bit_pattern;
 
+    // read values from registers
+    uint32_t bit23check = 0x1 << 22;
+    while(!(SysTick->LOAD & bit23check)){};
+
+    // pointer casting test examples
+    uint32_t words[4] = {0x12345678, 0x87654321, 0xABCDEF12, 0x12345678};
+    uint32_t *ptr = words;
+    *++ptr = 0x0; // 0x87654321 -> 0x00000000
+    // 16 bit 로 캐스팅 시, +1 할때, 0x12345678 -> 0x87654321로 가는게 아닌
+    // 0x1234 -> 0x5678로 가는 것을 확인할 수 있다. 16 bit 마다 접근하고 값 읽음
+    uint16_t *ptr16 = (uint16_t *) words; 
+    *++ptr16 = 0x0; // 0x12345678 -> 0x00005678
+
+    uint16_t words16[4] = {0x1234, 0x5678, 0xABCD, 0xEF12};
+    uint32_t *ptr32 = (uint32_t *) words16;
+    *++ptr32 = 0x0; // 0xABCD, 0xEF12 -> 0x0000 0000
     return 0;
 }
 
