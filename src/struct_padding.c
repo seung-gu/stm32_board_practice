@@ -58,6 +58,16 @@ typedef struct
 
 int main(){
     PLL_Init_84MHZ();
+    #define STRUCT memory_map_unaligned_not_packed
+    STRUCT * EXTRACT_DATA;
+    EXTRACT_DATA = (STRUCT *) &data_buffer_in;
+    uint32_t array_size = sizeof(STRUCT);
+    uint32_t first = EXTRACT_DATA->first_element;
+    uint32_t second = EXTRACT_DATA->second_element;
+    uint32_t third = EXTRACT_DATA->third_element;
+    uint32_t fourth = EXTRACT_DATA->fourth_element;
+    
+    /* 
     #define STRUCT memory_map_unaligned_packed
     STRUCT * EXTRACT_DATA, struct_with_space;
     STRUCT * SPACE_DATA = &struct_with_space;
@@ -75,7 +85,8 @@ int main(){
     uint32_t second = EXTRACT_DATA->second_element;
     uint32_t third = EXTRACT_DATA->third_element;
     uint32_t fourth = EXTRACT_DATA->fourth_element;
+    */
 
     return 0;
-}
+ }
 
