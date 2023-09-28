@@ -66,10 +66,12 @@ typedef struct
 
 int main(){
     PLL_Init_84MHZ();
+    uint8_t value1 = 10;
     asm (
-          "mov R0, #10\n\t"
-    	  "mov R1, #20\n\t"
-    	  "add R1, R0, R1\n\t"
+      "mov R0, #10\n\t"
+      "mov R1, #20\n\t"
+      "add R2, R0, R1\n\t"
+      "mov R0, R2\n\t"
     );
     return 0;
 }

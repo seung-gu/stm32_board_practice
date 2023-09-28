@@ -81,7 +81,7 @@ int main(){
     SysTick->LOAD &= ~clear_bits;
     uint32_t bit_pattern = 0b01010101 << 16;
     SysTick->LOAD |= bit_pattern;
-
+    
     // read values from registers
     uint32_t bit23check = 0x1 << 22;
     while(!(SysTick->LOAD & bit23check)){};
