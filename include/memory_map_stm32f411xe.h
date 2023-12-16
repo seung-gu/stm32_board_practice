@@ -93,6 +93,7 @@ programming model and Internal peripherals.
 #define MPU_BASE            (SCS_BASE +  0x0D90UL)                    /*!< Memory Protection Unit */	
 #define FPU_BASE            (SCS_BASE +  0x0F30UL)                    /*!< Floating Point Unit */
 
+	 
 /**
   \brief  Structure type to access the System Control and ID Register not in the SCB.
  */
@@ -104,72 +105,6 @@ typedef struct
 } SCnSCB_Type;
 	 
 #define SCnSCB              ((SCnSCB_Type    *)     SCS_BASE      )   /*!< System control Register not in SCB */
-
-/** \ingroup  CMSIS_core_register
-    \defgroup CMSIS_ITM     Instrumentation Trace Macrocell (ITM)
-    \brief      Type definitions for the Instrumentation Trace Macrocell (ITM)
-  @{
- */
-
-/** \brief  Structure type to access the Instrumentation Trace Macrocell Register (ITM).
- */
-typedef struct
-{
-  volatile  union
-  {
-    volatile  uint8_t    u8;                  /*!< Offset: 0x000 ( /W)  ITM Stimulus Port 8-bit                   */
-    volatile  uint16_t   u16;                 /*!< Offset: 0x000 ( /W)  ITM Stimulus Port 16-bit                  */
-    volatile  uint32_t   u32;                 /*!< Offset: 0x000 ( /W)  ITM Stimulus Port 32-bit                  */
-  }  PORT [32];                          /*!< Offset: 0x000 ( /W)  ITM Stimulus Port Registers               */
-       uint32_t RESERVED0[864];
-  volatile uint32_t TER;                     /*!< Offset: 0xE00 (R/W)  ITM Trace Enable Register                 */
-       uint32_t RESERVED1[15];
-  volatile uint32_t TPR;                     /*!< Offset: 0xE40 (R/W)  ITM Trace Privilege Register              */
-       uint32_t RESERVED2[15];
-  volatile uint32_t TCR;                     /*!< Offset: 0xE80 (R/W)  ITM Trace Control Register                */
-       uint32_t RESERVED3[29];
-  volatile  uint32_t IWR;                     /*!< Offset: 0xEF8 ( /W)  ITM Integration Write Register            */
-  volatile const  uint32_t IRR;                     /*!< Offset: 0xEFC (R/ )  ITM Integration Read Register             */
-  volatile uint32_t IMCR;                    /*!< Offset: 0xF00 (R/W)  ITM Integration Mode Control Register     */
-       uint32_t RESERVED4[43];
-  volatile  uint32_t LAR;                     /*!< Offset: 0xFB0 ( /W)  ITM Lock Access Register                  */
-  volatile const  uint32_t LSR;                     /*!< Offset: 0xFB4 (R/ )  ITM Lock Status Register                  */
-       uint32_t RESERVED5[6];
-  volatile const  uint32_t PID4;                    /*!< Offset: 0xFD0 (R/ )  ITM Peripheral Identification Register #4 */
-  volatile const  uint32_t PID5;                    /*!< Offset: 0xFD4 (R/ )  ITM Peripheral Identification Register #5 */
-  volatile const  uint32_t PID6;                    /*!< Offset: 0xFD8 (R/ )  ITM Peripheral Identification Register #6 */
-  volatile const  uint32_t PID7;                    /*!< Offset: 0xFDC (R/ )  ITM Peripheral Identification Register #7 */
-  volatile const  uint32_t PID0;                    /*!< Offset: 0xFE0 (R/ )  ITM Peripheral Identification Register #0 */
-  volatile const  uint32_t PID1;                    /*!< Offset: 0xFE4 (R/ )  ITM Peripheral Identification Register #1 */
-  volatile const  uint32_t PID2;                    /*!< Offset: 0xFE8 (R/ )  ITM Peripheral Identification Register #2 */
-  volatile const  uint32_t PID3;                    /*!< Offset: 0xFEC (R/ )  ITM Peripheral Identification Register #3 */
-  volatile const  uint32_t CID0;                    /*!< Offset: 0xFF0 (R/ )  ITM Component  Identification Register #0 */
-  volatile const  uint32_t CID1;                    /*!< Offset: 0xFF4 (R/ )  ITM Component  Identification Register #1 */
-  volatile const  uint32_t CID2;                    /*!< Offset: 0xFF8 (R/ )  ITM Component  Identification Register #2 */
-  volatile const  uint32_t CID3;                    /*!< Offset: 0xFFC (R/ )  ITM Component  Identification Register #3 */
-} ITM_Type;
-
-#define ITM                 ((ITM_Type       *)     ITM_BASE      )   /*!< ITM configuration struct           */
-
-
-
-
-/** \brief  Structure type to access the Core Debug Register (CoreDebug).
- */
-typedef struct
-{
-	volatile uint32_t DHCSR;                   /*!< Offset: 0x000 (R/W)  Debug Halting Control and Status Register    */
-	volatile uint32_t DCRSR;                   /*!< Offset: 0x004 ( /W)  Debug Core Register Selector Register        */
-	volatile uint32_t DCRDR;                   /*!< Offset: 0x008 (R/W)  Debug Core Register Data Register            */
-	volatile uint32_t DEMCR;                   /*!< Offset: 0x00C (R/W)  Debug Exception and Monitor Control Register */
-} CoreDebug_Type;
-
-#define CoreDebug           ((CoreDebug_Type *)     CoreDebug_BASE)   /*!< Core Debug configuration struct    */
-
-#define DBGMCU_CR           (*((volatile uint32_t *) 0xE0042004))    /*!< Debug MCU configuration register   */
-#define DBGMCU_APB1_FZ      (*((volatile uint32_t *) 0xE0042008))    /*!< Debug MCU APB1 freeze register   */
-#define DBGMCU_APB2_FZ      (*((volatile uint32_t *) 0xE004200C))    /*!< Debug MCU APB2 freeze register   */
-
 
 /**
   \brief  Structure type to access the System Control Block (SCB).

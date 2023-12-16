@@ -1,4 +1,4 @@
-/* 
+/*
   core_initialisation_STM32F411xe.c - Core initialisation for STM32F411xe
   Author - Diptopal
 */
@@ -51,8 +51,6 @@ void PLL_Init_84MHZ(){// Initialising PLL for 80Mhz operation, please refer sect
 	                               // switch off HSI
 }
 
-
-
 void delay(uint32_t value) {
         while (value--){;}
   }
@@ -73,7 +71,7 @@ void enable_systick(){
     Enabling the interrupts here instead of a separate function since the interrupt registers are common with systick*/
     SCB->SHP[11] = SYSTICK_PRI; //This is a byte access
     SysTick->LOAD = RELOAD ; 
-    SysTick->CTRL &= ~0b111;
+    SysTick->CTRL &= ~(0b111);
     SysTick->CTRL |= ENABLE | INTEN | CLK_SRC;
     asm volatile("cpsie i"); //Enabling all interrupts with configurable priority
  }
@@ -123,14 +121,8 @@ void enable_LEDs(){
 }
 
 void blink_LED(uint32_t duration){
- 
+    
 }
-
-void power_LED(){
-    //Toggles all LEDs
-	uint32_t ALLLEDS = 0b1111 << 12; //Blue LED position in ODR
-    GPIOD->ODR = ALLLEDS; // Toggle the LED
- }
 
  void toggle_LED(){
     //Toggles all LEDs
@@ -149,18 +141,6 @@ void power_LED(){
     asm("isb"); // Memory barrier for pipeline flush, so that no other instruction
                   // is executed in the pipeline before the interrupt begins executing
  }
-
- void move_led(){
- 	static uint32_t position = 0;
- 	position = position % 4;
- 	uint32_t LEDPINSCLR = ~(0xFF << 24); //These bits clear the mode of all 4 LEDs
- 	GPIOD->MODER &= LEDPINSCLR;           /* clear pin mode */
- 	uint32_t LEDPINSMODE = 0x1 << (24 + (position * 2)); //Set orange LED port as output port PD13
- 	                                        // So now the systick will glow the orange LED
- 	position++;
- 	GPIOD->MODER |= LEDPINSMODE;            /* set pins to output mode */
- }
-
 
  void EXTI0_Handler(){
 	static uint32_t position = 0;
@@ -193,5 +173,40 @@ void double_word_padding_disable(){
 }
 
 
+
+
+/*
+Resets the EP0 state machine. Sets the execution states to idle
+and sets all remaining values to zero.
+*/
+void reset_EP0_state_machine(){
+    uint8_t row, column;
+    EP0_State_Machine.EP0_execution_state = STATE_IDLE;
+    for(row = 0 ; row < 2 ; row++){
+        for(column = 0 ; column < 7 ; column++){
+            EP0_State_Machine.EP_halt_status[row][column] = 0;
+        }
+    }
+    EP0_State_Machine.data_to_transfer = 0;
+    EP0_State_Machine.buffer_position = 0;
+    EP0_State_Machine.remaining_data = 0;
+    EP0_State_Machine.set_address_pending = 0;
+    EP0_State_Machine.enumeration_status = 0;
+
+}
+
+/*
+Resets the EP2 state machine. Sets the execution states to idle
+and sets all remaining values to zero.
+*/
+void reset_EP2_state_machine(){
+    EP2_State_Machine.EP2_execution_state = STATE_IDLE;
+    EP2_State_Machine.set_idle_time = 0;//In milliseconds
+    EP2_State_Machine.idle_counter = 0;
+    EP2_State_Machine.running_counter = 0;
+    EP2_State_Machine.data_to_transfer = 0;
+    EP2_State_Machine.buffer_position = 0; //Not sure where to point it, yet to find out
+    EP2_State_Machine.remaining_data = 0;
+}
 
 
