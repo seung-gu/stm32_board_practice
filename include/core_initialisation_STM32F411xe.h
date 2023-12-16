@@ -47,7 +47,6 @@ void enable_LEDs();
 void configure_user_button();
 void configure_EXTI0_PortA0();
 int main();
-void move_led();
 
 
 /*
