@@ -8,82 +8,82 @@ SRAM             0x0000000020000000 0x0000000000020000 xrw
 
 Linker script and memory map
 
-LOAD C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
-LOAD C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
-LOAD C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+LOAD C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
+LOAD C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+LOAD C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
 START GROUP
 LOAD C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7e-m+fp/hard\libgcc.a
 LOAD C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg.a
 LOAD C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc.a
 END GROUP
 
-.text           0x0000000008000000      0x744
+.text           0x0000000008000000      0x764
                 0x0000000008000000                _text = .
  *(.isr_vector)
- .isr_vector    0x0000000008000000      0x198 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+ .isr_vector    0x0000000008000000      0x198 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
                 0x0000000008000000                g_pfnVectors
  *(.text)
- .text          0x0000000008000198       0x74 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+ .text          0x0000000008000198       0x80 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
                 0x0000000008000198                main
-                0x00000000080001f8                demo_relocatable
- .text          0x000000000800020c      0x4b0 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
-                0x000000000800020c                PLL_Init_84MHZ
-                0x0000000008000328                delay
-                0x000000000800034a                enable_systick
-                0x00000000080003b0                configure_EXTI0_PortA0
-                0x000000000800043c                configure_user_button
-                0x0000000008000498                enable_LEDs
-                0x00000000080004e8                blink_LED
-                0x00000000080004fc                toggle_LED
-                0x0000000008000524                SysTick_Handler
-                0x0000000008000534                EXTI0_Handler
-                0x00000000080005a8                initialise_FPU
-                0x00000000080005dc                double_word_padding_disable
-                0x0000000008000608                reset_EP0_state_machine
-                0x0000000008000680                reset_EP2_state_machine
- .text          0x00000000080006bc       0x80 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
-                0x00000000080006bc                ResetISR
+                0x0000000008000204                demo_relocatable
+ .text          0x0000000008000218      0x4c4 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+                0x0000000008000218                PLL_Init_84MHZ
+                0x0000000008000334                delay
+                0x0000000008000356                enable_systick
+                0x00000000080003bc                configure_EXTI0_PortA0
+                0x0000000008000448                configure_user_button
+                0x00000000080004a4                enable_LEDs
+                0x00000000080004f4                blink_LED
+                0x0000000008000508                toggle_LED
+                0x0000000008000530                SysTick_Handler
+                0x0000000008000554                EXTI0_Handler
+                0x00000000080005c8                initialise_FPU
+                0x00000000080005fc                double_word_padding_disable
+                0x0000000008000628                reset_EP0_state_machine
+                0x00000000080006a0                reset_EP2_state_machine
+ .text          0x00000000080006dc       0x80 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
+                0x00000000080006dc                ResetISR
  *(.rodata)
- .rodata        0x000000000800073c        0x8 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
-                0x000000000800073c                test1
-                0x0000000008000740                test2
-                0x0000000008000744                _etext = .
+ .rodata        0x000000000800075c        0x8 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
+                0x000000000800075c                test1
+                0x0000000008000760                test2
+                0x0000000008000764                _etext = .
 
-.glue_7         0x0000000008000744        0x0
- .glue_7        0x0000000008000744        0x0 linker stubs
+.glue_7         0x0000000008000764        0x0
+ .glue_7        0x0000000008000764        0x0 linker stubs
 
-.glue_7t        0x0000000008000744        0x0
- .glue_7t       0x0000000008000744        0x0 linker stubs
+.glue_7t        0x0000000008000764        0x0
+ .glue_7t       0x0000000008000764        0x0 linker stubs
 
-.vfp11_veneer   0x0000000008000744        0x0
- .vfp11_veneer  0x0000000008000744        0x0 linker stubs
+.vfp11_veneer   0x0000000008000764        0x0
+ .vfp11_veneer  0x0000000008000764        0x0 linker stubs
 
-.v4_bx          0x0000000008000744        0x0
- .v4_bx         0x0000000008000744        0x0 linker stubs
+.v4_bx          0x0000000008000764        0x0
+ .v4_bx         0x0000000008000764        0x0 linker stubs
 
-.iplt           0x0000000008000744        0x0
- .iplt          0x0000000008000744        0x0 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+.iplt           0x0000000008000764        0x0
+ .iplt          0x0000000008000764        0x0 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
 
-.rel.dyn        0x0000000008000744        0x0
- .rel.iplt      0x0000000008000744        0x0 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+.rel.dyn        0x0000000008000764        0x0
+ .rel.iplt      0x0000000008000764        0x0 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
 
-.data           0x0000000020000000        0x8 load address 0x0000000008000744
+.data           0x0000000020000000        0x8 load address 0x0000000008000764
                 0x0000000020000000                _data = .
  *(.data*)
- .data          0x0000000020000000        0x4 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+ .data          0x0000000020000000        0x4 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
                 0x0000000020000000                EP2_polling_rate
- .data          0x0000000020000004        0x0 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
- .data          0x0000000020000004        0x4 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+ .data          0x0000000020000004        0x0 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+ .data          0x0000000020000004        0x4 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
                 0x0000000020000004                dst
                 0x0000000020000008                _edata = .
 
-.igot.plt       0x0000000020000008        0x0 load address 0x000000000800074c
- .igot.plt      0x0000000020000008        0x0 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+.igot.plt       0x0000000020000008        0x0 load address 0x000000000800076c
+ .igot.plt      0x0000000020000008        0x0 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
 
-.bss            0x0000000020000008     0x2ba4 load address 0x000000000800074c
+.bss            0x0000000020000008     0x2ba4 load address 0x000000000800076c
                 0x0000000020000008                _bss = .
  *(.bss*)
- .bss           0x0000000020000008     0x279c C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+ .bss           0x0000000020000008     0x279c C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
                 0x0000000020000008                data_buffer_in
                 0x0000000020002718                data_buffer_in_EP2
                 0x0000000020002758                test3
@@ -91,61 +91,61 @@ END GROUP
                 0x0000000020002760                test5
                 0x0000000020002764                EP0_State_Machine
                 0x0000000020002788                EP2_State_Machine
- .bss           0x00000000200027a4        0x8 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
+ .bss           0x00000000200027a4        0x8 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
                 0x00000000200027a4                just_a_random_variable
- .bss           0x00000000200027ac      0x400 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+ .bss           0x00000000200027ac      0x400 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
  *(COMMON)
                 0x0000000020002bac                _ebss = .
 OUTPUT(build_example.out elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x0000000000000000     0x1092
- .debug_info    0x0000000000000000      0x347 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
- .debug_info    0x0000000000000347      0xbd2 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
- .debug_info    0x0000000000000f19      0x179 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+.debug_info     0x0000000000000000     0x109c
+ .debug_info    0x0000000000000000      0x347 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
+ .debug_info    0x0000000000000347      0xbd2 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+ .debug_info    0x0000000000000f19      0x183 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
 
-.debug_abbrev   0x0000000000000000      0x40f
- .debug_abbrev  0x0000000000000000      0x122 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
- .debug_abbrev  0x0000000000000122      0x1f1 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
- .debug_abbrev  0x0000000000000313       0xfc C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+.debug_abbrev   0x0000000000000000      0x411
+ .debug_abbrev  0x0000000000000000      0x122 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
+ .debug_abbrev  0x0000000000000122      0x1f1 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+ .debug_abbrev  0x0000000000000313       0xfe C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
 
 .debug_aranges  0x0000000000000000       0x60
  .debug_aranges
-                0x0000000000000000       0x20 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+                0x0000000000000000       0x20 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
  .debug_aranges
-                0x0000000000000020       0x20 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
+                0x0000000000000020       0x20 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
  .debug_aranges
-                0x0000000000000040       0x20 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+                0x0000000000000040       0x20 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
 
-.debug_line     0x0000000000000000      0x45e
- .debug_line    0x0000000000000000       0xd7 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
- .debug_line    0x00000000000000d7      0x2bb C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
- .debug_line    0x0000000000000392       0xcc C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+.debug_line     0x0000000000000000      0x461
+ .debug_line    0x0000000000000000       0xd7 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
+ .debug_line    0x00000000000000d7      0x2be C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+ .debug_line    0x0000000000000395       0xcc C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
 
 .debug_str      0x0000000000000000      0x7f4
- .debug_str     0x0000000000000000      0x352 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+ .debug_str     0x0000000000000000      0x352 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
                                         0x37a (size before relaxing)
- .debug_str     0x0000000000000352      0x416 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
+ .debug_str     0x0000000000000352      0x416 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
                                         0x6c8 (size before relaxing)
- .debug_str     0x0000000000000768       0x8c C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
-                                        0x176 (size before relaxing)
+ .debug_str     0x0000000000000768       0x8c C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
+                                        0x184 (size before relaxing)
 
 .comment        0x0000000000000000       0x43
- .comment       0x0000000000000000       0x43 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+ .comment       0x0000000000000000       0x43 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
                                          0x44 (size before relaxing)
- .comment       0x0000000000000043       0x44 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
- .comment       0x0000000000000043       0x44 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+ .comment       0x0000000000000043       0x44 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+ .comment       0x0000000000000043       0x44 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
 
 .ARM.attributes
                 0x0000000000000000       0x32
  .ARM.attributes
-                0x0000000000000000       0x32 C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
+                0x0000000000000000       0x32 C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
  .ARM.attributes
-                0x0000000000000032       0x32 C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
+                0x0000000000000032       0x32 C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
  .ARM.attributes
-                0x0000000000000064       0x32 C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+                0x0000000000000064       0x32 C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o
 
 .debug_frame    0x0000000000000000      0x2f4
- .debug_frame   0x0000000000000000       0x4c C:\Users\zeitr\AppData\Local\Temp\ccsGx6XI.o
- .debug_frame   0x000000000000004c      0x22c C:\Users\zeitr\AppData\Local\Temp\ccb4hlJB.o
- .debug_frame   0x0000000000000278       0x7c C:\Users\zeitr\AppData\Local\Temp\ccE1WL7z.o
+ .debug_frame   0x0000000000000000       0x4c C:\Users\zeitr\AppData\Local\Temp\ccSgJrVY.o
+ .debug_frame   0x000000000000004c      0x22c C:\Users\zeitr\AppData\Local\Temp\ccS9VYQZ.o
+ .debug_frame   0x0000000000000278       0x7c C:\Users\zeitr\AppData\Local\Temp\cckJRvO1.o

@@ -37,9 +37,9 @@ int main(){
     reset_EP2_state_machine(); //This is used for both initialisation and reset
 	uint32_t first_report_flag = 0;
     float test_float = 23.77689;
-    asm("push {r0}");
+    //asm("push {r0}");
     uint16_t force_padding5 = 56;
-    //test_float *= 2; // To test lazy stacking
+    test_float *= 2; // To test lazy stacking
     //asm("VLDR.F32 S2, =0x0"); // To test lazy stacking
     //Causes Hard-Fault
     //uint32_t hard_fault = 10;

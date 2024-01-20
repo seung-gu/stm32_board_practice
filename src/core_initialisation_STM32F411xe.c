@@ -91,7 +91,7 @@ void configure_EXTI0_PortA0(){
     NVIC->ISER[0] |= NVICINTI0EN;     // Enabling ISER0 in NVIC
 
 
-    uint8_t INTI0PRIO = 0x3 << 4;     // Setting the INTI0 priority variable
+    uint8_t INTI0PRIO = 0x5 << 4;     // Setting the INTI0 priority variable
                                       // left shift by 4 bytes as upper 4 bits are used
     NVIC->IP[6] &= (uint8_t)~0xFF;    // Clearing the NVIC INTI0 priority field
     NVIC->IP[6] |=  INTI0PRIO;        // Setting the interrupt priority here
@@ -132,11 +132,11 @@ void blink_LED(uint32_t duration){
 
 
  void SysTick_Handler(){
-	toggle_LED();
+ 	toggle_LED();
 	//float test_float_isr = 23.77689;
 	//test_float_isr *= 3; // To test lazy stacking
     //delay(0xFFFFFF);
-    //NVIC->ISPR[0] |= 0x1 << 6; //Set pending status of EXTII0 through software
+    NVIC->ISPR[0] |= 0x1 << 6; //Set pending status of EXTII0 through software
     //NVIC->STIR = 0x6; //Set pending status of EXTI0 through software using the STIR
     asm("isb"); // Memory barrier for pipeline flush, so that no other instruction
                   // is executed in the pipeline before the interrupt begins executing
