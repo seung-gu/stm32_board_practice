@@ -156,10 +156,10 @@ void blink_LED(uint32_t duration){
 
 	// to switch MCU clock to HSI
 //	RCC->CR |= HSION;
-	RCC->CFGR = RCC->CFGR & ~(0b11) | 0b01;		//Switch MCU clock source to HSI
+	RCC->CFGR = RCC->CFGR & ~(0b11) | 0b01;		//Switch MCU clock source to HSE
 
-	uint32_t SWST = 0b01 << 2;              //Bit to check if the MCU clock source is indeed switched to HSI
-	while(!(RCC->CFGR & SWST)){};  //Checking if the MCU clock has switched to HSI
+	uint32_t SWST = 0b01 << 2;              //Bit to check if the MCU clock source is indeed switched to HSE
+	while(!(RCC->CFGR & SWST)){};  //Checking if the MCU clock has switched to HSE
 	FLASH->ACR &= ~(0b11);	// change WS to 0
 
 	uint32_t PLLON = 0x1 << 24;             //Bit to switch on the PLL in CR
