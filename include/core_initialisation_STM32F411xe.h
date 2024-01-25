@@ -33,6 +33,7 @@ void enable_systick();
 static void enable_usb_interrupt();
 void toggle_LED();
 void SysTick_Handler();
+void set_systick_timer(uint16_t);
 void EXTI0_Handler();
 void initialise_FPU();
 void initialise_portG2();

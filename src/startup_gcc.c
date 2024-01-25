@@ -56,7 +56,7 @@ void (* const g_pfnVectors[])() =
 		IntDefaultHandler,                  /* RTC Wakeup through the EXTI line */
 		IntDefaultHandler,                  /* FLASH                        */
 		IntDefaultHandler,                  /* RCC                          */
-		IntDefaultHandler,                  /* EXTI Line0                   */
+		EXTI0_Handler,                  /* EXTI Line0                   */
 		IntDefaultHandler,                  /* EXTI Line1                   */
 		IntDefaultHandler,                  /* EXTI Line2                   */
 		IntDefaultHandler,                  /* EXTI Line3                   */

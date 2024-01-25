@@ -53,7 +53,7 @@ void PLL_Init_84MHZ(){// Initialising PLL for 80Mhz operation, please refer sect
 
 void delay(uint32_t value) {
         while (value--){;}
-  }
+}
 
 void enable_systick(){
 	//blink_LED(10);
@@ -74,27 +74,68 @@ void enable_systick(){
     SysTick->CTRL &= ~(0b111);
     SysTick->CTRL |= ENABLE | INTEN | CLK_SRC;
     asm volatile("cpsie i"); //Enabling all interrupts with configurable priority
- }
+}
+
+void set_systick_timer(uint16_t msec){
+	uint32_t GPIOCCLOCK = 0x1 << 2 ; //GPIO C position
+	RCC->AHB1ENR |= GPIOCCLOCK; /* enable GPIOC clock */
+	uint32_t LEDPINSCLR = ~(0xFF << 24); //These bits clear the mode of all 4 LEDs
+	GPIOC->MODER &= LEDPINSCLR; /* clear pin mode */
+	uint32_t LEDPINSMODE = 0b01000000 << 24; //Set blue LED port as output port PD15
+	GPIOC->MODER |= LEDPINSMODE; /* set pins to output mode */
+
+
+	// ex) set_systick_timer(msec = 200) => 0.2 sec
+	// repeat SysTick_Handler every 0.2 sec
+
+	// without float, 40 bytes for total
+
+	uint32_t CLK = 84 * 1000; // 84 MHz (msec * CLK = sec * mCLK)
+
+	uint32_t CLK_SRC = 0x1 << 2;
+	uint32_t INTEN = 0x1 << 1;
+	uint32_t ENABLE = 0x1 << 0;
+
+	if(0xffffff < msec * CLK - 1){
+		CLK_SRC = 0x0 << 2;
+		CLK /= 8;
+	}
+
+	uint32_t RELOAD = msec * CLK - 1;
+	//0x280DE7
+	//uint32_t RELOAD = 0x7A1200 ; // For 10Hz tick frequency with 80 Mhz clock and 2Hz for a 16Mhz clock
+	//uint32_t RELOAD = 0x4C4B400 ; // The counter is a 24 bit field, this value overflows
+	uint32_t SYSTICK_PRI = 0x4 << 4; // SysTick Priority left shift by 4 as upper 4 bits are relevant
+	asm volatile("cpsid i"); //Disabling all interrupts with configurable priority
+	/*Enabling SysTick interrupt and setting a priority of 2
+	The SYSTICK interrupt registers are different from the conventional interrupt config registers
+	Enabling the interrupts here instead of a separate function since the interrupt registers are common with systick*/
+	SCB->SHP[11] = SYSTICK_PRI; //This is a byte access (SHP PRI4 = SHP[0], PRI5 = SHP[1], ... PRI15 = SHP[11])
+	SysTick->LOAD = RELOAD ;
+	SysTick->CTRL &= ~(0b111); //11111111111111111111111111111000
+	SysTick->CTRL |= ENABLE | INTEN | CLK_SRC;
+	asm volatile("cpsie i"); //Enabling all interrupts with configurable priority
+}
 
 void configure_EXTI0_PortA0(){
 	asm volatile("cpsid i"); //Disabling all interrupts with configurable priority
 	uint32_t EXTICR1A0 = 0xF << 0; //PA0 is configured to accept EXTI0 interrupt
-	SYSCFG->EXTICR[0] &= ~EXTICR1A0; // Clearing the INTI0 field of EXTICR1
+	SYSCFG->EXTICR[0] &= ~EXTICR1A0; // Clearing the EXTI0 field of EXTICR1
 	                                 // Nothing more to be done here PA0 is now
-	                                 // linked to INTI0
-	uint32_t ENINTL0 = 0x1 << 0;     // Configure interrupt line enable 0 bit
-	EXTI->IMR |= ENINTL0;            // Enable interrupt line 0
-    uint32_t RISTRIGINTI0 = 0x1 << 0; // Configure rising trigger variable for INTI0
+	                                 // linked to EXTI0
+	uint32_t ENEXTL0 = 0x1 << 0;     // Configure interrupt line enable 0 bit
+	EXTI->IMR |= ENEXTL0;            // Enable interrupt line 0
+    uint32_t RISTRIGEXTI0 = 0x1 << 0; // Configure rising trigger variable for EXTI0
                                       // the button is active high
-    EXTI->RTSR |= RISTRIGINTI0;       // Enable interrupt on rising trigger
-    uint32_t NVICINTI0EN = 0x1 << 6;  // Configure enable bit variable in NVIC for EXTII0
-    NVIC->ISER[0] |= NVICINTI0EN;     // Enabling ISER0 in NVIC
+    EXTI->RTSR |= RISTRIGEXTI0;       // Enable interrupt on rising trigger
+    uint32_t NVICEXTI0EN = 0x1 << 6;  // Configure enable bit variable in NVIC for EXTII0
+    NVIC->ISER[0] |= NVICEXTI0EN;     // Enabling ISER0 in NVIC for EXTII0
 
 
-    uint8_t INTI0PRIO = 0x3 << 4;     // Setting the INTI0 priority variable
+    uint8_t EXTI0PRIO = 0x3 << 4;     // Setting the EXTI0 priority variable
                                       // left shift by 4 bytes as upper 4 bits are used
-    NVIC->IP[6] &= (uint8_t)~0xFF;    // Clearing the NVIC INTI0 priority field
-    NVIC->IP[6] |=  INTI0PRIO;        // Setting the interrupt priority here
+    NVIC->IP[6] &= (uint8_t)~0xFF;    // Clearing the NVIC EXTI0 priority field
+    NVIC->IP[6] |=  EXTI0PRIO;        // Setting the interrupt priority here
     asm volatile("cpsie i");          //Enabling all interrupts with configurable priority
 }
 
