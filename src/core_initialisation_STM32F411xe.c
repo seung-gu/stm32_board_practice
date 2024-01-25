@@ -209,6 +209,7 @@ void blink_LED(uint32_t duration){
 	uint32_t PLLN = 0x54 << 6;  // This is assuming PLL input from HSE to be 8Mhz
 	RCC->PLLCFGR &= ~0xF437FFF; // Clearing the register as it has a non zero reset value
 								 // and we will need to set all the values afresh
+								// but 31:28, 21:18, 15 should not be zero-initialized
 								 //f(VCO clock) = f(PLL clock input) × (PLLN / PLLM)
 								 //f(PLL general clock output) = f(VCO clock) / PLLP
 								 //f(USB OTG FS, SDIO) = f(VCO clock) / PLLQ
