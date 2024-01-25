@@ -28,8 +28,8 @@ int main(){
     PLL_Init_84MHZ();
     initialise_FPU();
     enable_LEDs();
-    //enable_systick();
-    set_systick_timer(1000);
+    enable_systick();
+    //set_systick_timer(1000);
     configure_user_button();
     configure_EXTI0_PortA0();
 	int32_t some_random_variable = 100;
