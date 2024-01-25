@@ -131,9 +131,8 @@ void configure_EXTI0_PortA0(){
     uint32_t NVICEXTI0EN = 0x1 << 6;  // Configure enable bit variable in NVIC for EXTII0
     NVIC->ISER[0] |= NVICEXTI0EN;     // Enabling ISER0 in NVIC for EXTII0
 
-
     uint8_t EXTI0PRIO = 0x3 << 4;     // Setting the EXTI0 priority variable
-                                      // left shift by 4 bytes as upper 4 bits are used
+    								  // left shift by 4 bytes as upper 4 bits are used
     NVIC->IP[6] &= (uint8_t)~0xFF;    // Clearing the NVIC EXTI0 priority field
     NVIC->IP[6] |=  EXTI0PRIO;        // Setting the interrupt priority here
     asm volatile("cpsie i");          //Enabling all interrupts with configurable priority
@@ -145,7 +144,7 @@ void configure_user_button(){
 	uint32_t BUTTONPINSCLR = ~(0b11 << 0); //These bits clear the mode for the port A0 pin
 	GPIOA->MODER &= BUTTONPINSCLR; /* clear pin mode */
 
-	uint32_t BUTTONPINSMODE = 0b00 << 0; //Configiration to set Port A0 as input port
+	uint32_t BUTTONPINSMODE = 0b00 << 0; //Configuration to set Port A0 as input port
 	                                     //Actually this is set by default but just keeping it here
 	GPIOA->MODER |= BUTTONPINSMODE;      // Set Port A0 as input port
 	uint32_t ACTIVELOW = 0x2;
@@ -173,25 +172,90 @@ void blink_LED(uint32_t duration){
 
 
  void SysTick_Handler(){
-	toggle_LED();
+ 	toggle_LED();
 	//float test_float_isr = 23.77689;
 	//test_float_isr *= 3; // To test lazy stacking
     //delay(0xFFFFFF);
-    //NVIC->ISPR[0] |= 0x1 << 6; //Set pending status of EXTII0 through software
+//    NVIC->ISPR[0] |= 0x1 << 6; //Set pending status of EXTII0 through software
     //NVIC->STIR = 0x6; //Set pending status of EXTI0 through software using the STIR
     asm("isb"); // Memory barrier for pipeline flush, so that no other instruction
                   // is executed in the pipeline before the interrupt begins executing
  }
 
+
+ void Change_SysCLK(uint32_t pll_P){
+	uint32_t latency;
+	uint32_t HSION = 0x1 << 0 ;             //Bit to control HSI
+
+	if (pll_P > (0x1 << 16)) {
+		latency = 0x1 << 0;
+	}
+	else {
+		latency = 0x2 << 0;
+	}
+
+	// to switch MCU clock to HSI
+//	RCC->CR |= HSION;
+	RCC->CFGR = RCC->CFGR & ~(0b11) | 0b01;		//Switch MCU clock source to HSE
+
+	uint32_t SWST = 0b01 << 2;              //Bit to check if the MCU clock source is indeed switched to HSE
+	while(!(RCC->CFGR & SWST)){};  //Checking if the MCU clock has switched to HSE
+	FLASH->ACR &= ~(0b11);	// change WS to 0
+
+	uint32_t PLLON = 0x1 << 24;             //Bit to switch on the PLL in CR
+	RCC->CR &= ~PLLON;              //Switch off the PLL
+	uint32_t PLLQ = 0x7 << 24;   //This is targeting 48Mhz for USB clock
+	uint32_t PLLM = 0x2 << 0;    //This is assuming PLL input from HSE to be 8Mhz
+	uint32_t PLLN = 0x54 << 6;  // This is assuming PLL input from HSE to be 8Mhz
+	RCC->PLLCFGR &= ~0xF437FFF; // Clearing the register as it has a non zero reset value
+								 // and we will need to set all the values afresh
+								 //f(VCO clock) = f(PLL clock input) × (PLLN / PLLM)
+								 //f(PLL general clock output) = f(VCO clock) / PLLP
+								 //f(USB OTG FS, SDIO) = f(VCO clock) / PLLQ
+	RCC->PLLCFGR |= pll_P | PLLQ | PLLM | PLLN ; // Writing the values in the PLLCFGR register
+	uint32_t PLLSRC = 0x1 << 22;           //This is where we set up the bit for the PLL to choose the
+										   //HSE clock
+	RCC->PLLCFGR |= PLLSRC;                //We select the HSE clock
+	RCC->CR |= PLLON;
+
+	uint32_t PLLRDY = 0x1 << 25;            //Bit to check if PLL is ready
+	while(!(RCC->CR & PLLRDY)){};  //Wait until PLL is locked
+
+	FLASH->ACR |= latency;      // Setting Flash memory wait state to 2WS, the Vdd is 3V
+	uint32_t SWPLL = 0b10 << 0;             //Bit to Switch the MCU clock source to PLL
+	RCC->CFGR = RCC->CFGR & ~(0b11) | SWPLL;            //Switch MCU clock source to PLL
+
+	SWST = 0b10 << 2;              //Bit to check if the MCU clock source is indeed switched to PLL
+	while(!(RCC->CFGR & SWST)){};  //Checking if the MCU clock has switched to PLL
+//	RCC->CR &= ~HSION;
+	return;
+ }
+
  void EXTI0_Handler(){
-	static uint32_t position = 0;
+/*	static uint32_t position = 0;
 	position = position % 4;
 	uint32_t LEDPINSCLR = ~(0xFF << 24); //These bits clear the mode of all 4 LEDs
-	GPIOD->MODER &= LEDPINSCLR;           /* clear pin mode */
+	GPIOD->MODER &= LEDPINSCLR;            clear pin mode
 	uint32_t LEDPINSMODE = 0x1 << (24 + (position * 2)); //Set orange LED port as output port PD13
 	                                        // So now the systick will glow the orange LED
 	position++;
-	GPIOD->MODER |= LEDPINSMODE;            /* set pins to output mode */
+	GPIOD->MODER |= LEDPINSMODE;          //   set pins to output mode
+	*/
+
+    // Change System clock after pushing user button
+	// P = 4, 6, 8 -> 84MHz, 56MHz, 42MHz
+    //reference manual external crystal is 8Mhz connected to HSE
+	uint32_t PLLP_4 = 0x1 << 16;	// 01
+	uint32_t PLLP_6 = 0x2 << 16;	// 10
+	uint32_t PLLP_8 = 0x3 << 16;	// 11
+	if ((RCC->PLLCFGR & PLLP_8) == PLLP_4) {
+		Change_SysCLK(PLLP_6);
+	} else if ((RCC->PLLCFGR & PLLP_8) == PLLP_6) {
+		Change_SysCLK(PLLP_8);
+	} else if ((RCC->PLLCFGR & PLLP_8) == PLLP_8) {
+		Change_SysCLK(PLLP_4);
+ 	}
+
 	uint32_t CLEARLINEPEND = 0x1 << 0;    //Clear pending on the external interrupt line
                                           // This is unique to the external interrupts that
 	                                      // there is a pending bit even outside NVIC

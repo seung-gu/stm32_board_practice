@@ -8,145 +8,148 @@ SRAM             0x0000000020000000 0x0000000000020000 xrw
 
 Linker script and memory map
 
-LOAD /tmp/cc61D8TF.o
-LOAD /tmp/cc683bLD.o
-LOAD /tmp/ccp24YwF.o
+LOAD /tmp/ccT6C5g6.o
+LOAD /tmp/ccIx04f6.o
+LOAD /tmp/ccrkwgW2.o
 START GROUP
 LOAD /opt/st/stm32cubeide_1.13.2_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7e-m+fp/hard/libgcc.a
 LOAD /opt/st/stm32cubeide_1.13.2_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a
 LOAD /opt/st/stm32cubeide_1.13.2_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a
 END GROUP
 
-.text           0x0000000008000000      0x810
+.text           0x0000000008000000      0x910
                 0x0000000008000000                _text = .
  *(.isr_vector)
- .isr_vector    0x0000000008000000      0x198 /tmp/ccp24YwF.o
+ .isr_vector    0x0000000008000000      0x198 /tmp/ccrkwgW2.o
                 0x0000000008000000                g_pfnVectors
  *(.text)
- .text          0x0000000008000198       0x74 /tmp/cc61D8TF.o
+ .text          0x0000000008000198       0x60 /tmp/ccT6C5g6.o
                 0x0000000008000198                main
-                0x00000000080001f8                demo_relocatable
- .text          0x000000000800020c      0x57c /tmp/cc683bLD.o
-                0x000000000800020c                PLL_Init_84MHZ
-                0x0000000008000328                delay
-                0x000000000800034a                enable_systick
-                0x00000000080003b0                set_systick_timer
-                0x000000000800047c                configure_EXTI0_PortA0
-                0x0000000008000508                configure_user_button
-                0x0000000008000564                enable_LEDs
-                0x00000000080005b4                blink_LED
-                0x00000000080005c8                toggle_LED
-                0x00000000080005f0                SysTick_Handler
-                0x0000000008000600                EXTI0_Handler
-                0x0000000008000674                initialise_FPU
-                0x00000000080006a8                double_word_padding_disable
-                0x00000000080006d4                reset_EP0_state_machine
-                0x000000000800074c                reset_EP2_state_machine
- .text          0x0000000008000788       0x80 /tmp/ccp24YwF.o
-                0x0000000008000788                ResetISR
+                0x00000000080001e4                demo_relocatable
+ .text          0x00000000080001f8      0x690 /tmp/ccIx04f6.o
+                0x00000000080001f8                PLL_Init_84MHZ
+                0x0000000008000314                delay
+                0x0000000008000336                enable_systick
+                0x000000000800039c                set_systick_timer
+                0x0000000008000468                configure_EXTI0_PortA0
+                0x00000000080004f4                configure_user_button
+                0x0000000008000550                enable_LEDs
+                0x00000000080005a0                blink_LED
+                0x00000000080005b4                toggle_LED
+                0x00000000080005dc                SysTick_Handler
+                0x00000000080005ec                Change_SysCLK
+                0x00000000080006fc                EXTI0_Handler
+                0x0000000008000774                initialise_FPU
+                0x00000000080007a8                double_word_padding_disable
+                0x00000000080007d4                reset_EP0_state_machine
+                0x000000000800084c                reset_EP2_state_machine
+ .text          0x0000000008000888       0x80 /tmp/ccrkwgW2.o
+                0x0000000008000888                ResetISR
  *(.rodata)
- .rodata        0x0000000008000808        0x8 /tmp/cc61D8TF.o
-                0x0000000008000808                test1
-                0x000000000800080c                test2
-                0x0000000008000810                _etext = .
+ .rodata        0x0000000008000908        0x8 /tmp/ccT6C5g6.o
+                0x0000000008000908                test1
+                0x000000000800090c                test2
+                0x0000000008000910                _etext = .
 
-.glue_7         0x0000000008000810        0x0
- .glue_7        0x0000000008000810        0x0 linker stubs
+.glue_7         0x0000000008000910        0x0
+ .glue_7        0x0000000008000910        0x0 linker stubs
 
-.glue_7t        0x0000000008000810        0x0
- .glue_7t       0x0000000008000810        0x0 linker stubs
+.glue_7t        0x0000000008000910        0x0
+ .glue_7t       0x0000000008000910        0x0 linker stubs
 
-.vfp11_veneer   0x0000000008000810        0x0
- .vfp11_veneer  0x0000000008000810        0x0 linker stubs
+.vfp11_veneer   0x0000000008000910        0x0
+ .vfp11_veneer  0x0000000008000910        0x0 linker stubs
 
-.v4_bx          0x0000000008000810        0x0
- .v4_bx         0x0000000008000810        0x0 linker stubs
+.v4_bx          0x0000000008000910        0x0
+ .v4_bx         0x0000000008000910        0x0 linker stubs
 
-.iplt           0x0000000008000810        0x0
- .iplt          0x0000000008000810        0x0 /tmp/cc61D8TF.o
+.iplt           0x0000000008000910        0x0
+ .iplt          0x0000000008000910        0x0 /tmp/ccT6C5g6.o
 
-.rel.dyn        0x0000000008000810        0x0
- .rel.iplt      0x0000000008000810        0x0 /tmp/cc61D8TF.o
+.rel.dyn        0x0000000008000910        0x0
+ .rel.iplt      0x0000000008000910        0x0 /tmp/ccT6C5g6.o
 
-.data           0x0000000020000000        0x8 load address 0x0000000008000810
+.data           0x0000000020000000        0xc load address 0x0000000008000910
                 0x0000000020000000                _data = .
  *(.data*)
- .data          0x0000000020000000        0x4 /tmp/cc61D8TF.o
+ .data          0x0000000020000000        0x5 /tmp/ccT6C5g6.o
                 0x0000000020000000                EP2_polling_rate
- .data          0x0000000020000004        0x0 /tmp/cc683bLD.o
- .data          0x0000000020000004        0x4 /tmp/ccp24YwF.o
-                0x0000000020000004                dst
-                0x0000000020000008                _edata = .
+                0x0000000020000004                test0
+ .data          0x0000000020000005        0x0 /tmp/ccIx04f6.o
+ *fill*         0x0000000020000005        0x3 
+ .data          0x0000000020000008        0x4 /tmp/ccrkwgW2.o
+                0x0000000020000008                dst
+                0x000000002000000c                _edata = .
 
-.igot.plt       0x0000000020000008        0x0 load address 0x0000000008000818
- .igot.plt      0x0000000020000008        0x0 /tmp/cc61D8TF.o
+.igot.plt       0x000000002000000c        0x0 load address 0x000000000800091c
+ .igot.plt      0x000000002000000c        0x0 /tmp/ccT6C5g6.o
 
-.bss            0x0000000020000008     0x2ba4 load address 0x0000000008000818
-                0x0000000020000008                _bss = .
+.bss            0x000000002000000c     0x2ba0 load address 0x000000000800091c
+                0x000000002000000c                _bss = .
  *(.bss*)
- .bss           0x0000000020000008     0x279c /tmp/cc61D8TF.o
-                0x0000000020000008                data_buffer_in
-                0x0000000020002718                data_buffer_in_EP2
-                0x0000000020002758                test3
-                0x000000002000275c                test4
-                0x0000000020002760                test5
-                0x0000000020002764                EP0_State_Machine
-                0x0000000020002788                EP2_State_Machine
- .bss           0x00000000200027a4        0x8 /tmp/cc683bLD.o
-                0x00000000200027a4                just_a_random_variable
- .bss           0x00000000200027ac      0x400 /tmp/ccp24YwF.o
+ .bss           0x000000002000000c     0x279c /tmp/ccT6C5g6.o
+                0x000000002000000c                data_buffer_in
+                0x000000002000271c                data_buffer_in_EP2
+                0x000000002000275c                test3
+                0x0000000020002760                test4
+                0x0000000020002764                test5
+                0x0000000020002768                EP0_State_Machine
+                0x000000002000278c                EP2_State_Machine
+ .bss           0x00000000200027a8        0x4 /tmp/ccIx04f6.o
+                0x00000000200027a8                just_a_random_variable
+ .bss           0x00000000200027ac      0x400 /tmp/ccrkwgW2.o
  *(COMMON)
                 0x0000000020002bac                _ebss = .
 OUTPUT(build_example.out elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x0000000000000000     0x1148
- .debug_info    0x0000000000000000      0x347 /tmp/cc61D8TF.o
- .debug_info    0x0000000000000347      0xc7e /tmp/cc683bLD.o
- .debug_info    0x0000000000000fc5      0x183 /tmp/ccp24YwF.o
+.debug_info     0x0000000000000000     0x11ca
+ .debug_info    0x0000000000000000      0x30d /tmp/ccT6C5g6.o
+ .debug_info    0x000000000000030d      0xd3a /tmp/ccIx04f6.o
+ .debug_info    0x0000000000001047      0x183 /tmp/ccrkwgW2.o
 
-.debug_abbrev   0x0000000000000000      0x412
- .debug_abbrev  0x0000000000000000      0x122 /tmp/cc61D8TF.o
- .debug_abbrev  0x0000000000000122      0x1f2 /tmp/cc683bLD.o
- .debug_abbrev  0x0000000000000314       0xfe /tmp/ccp24YwF.o
+.debug_abbrev   0x0000000000000000      0x464
+ .debug_abbrev  0x0000000000000000      0x120 /tmp/ccT6C5g6.o
+ .debug_abbrev  0x0000000000000120      0x246 /tmp/ccIx04f6.o
+ .debug_abbrev  0x0000000000000366       0xfe /tmp/ccrkwgW2.o
 
 .debug_aranges  0x0000000000000000       0x60
  .debug_aranges
-                0x0000000000000000       0x20 /tmp/cc61D8TF.o
+                0x0000000000000000       0x20 /tmp/ccT6C5g6.o
  .debug_aranges
-                0x0000000000000020       0x20 /tmp/cc683bLD.o
+                0x0000000000000020       0x20 /tmp/ccIx04f6.o
  .debug_aranges
-                0x0000000000000040       0x20 /tmp/ccp24YwF.o
+                0x0000000000000040       0x20 /tmp/ccrkwgW2.o
 
-.debug_line     0x0000000000000000      0x4af
- .debug_line    0x0000000000000000       0xd7 /tmp/cc61D8TF.o
- .debug_line    0x00000000000000d7      0x30c /tmp/cc683bLD.o
- .debug_line    0x00000000000003e3       0xcc /tmp/ccp24YwF.o
+.debug_line     0x0000000000000000      0x561
+ .debug_line    0x0000000000000000       0xc4 /tmp/ccT6C5g6.o
+ .debug_line    0x00000000000000c4      0x3d1 /tmp/ccIx04f6.o
+ .debug_line    0x0000000000000495       0xcc /tmp/ccrkwgW2.o
 
-.debug_str      0x0000000000000000      0x82f
- .debug_str     0x0000000000000000      0x36b /tmp/cc61D8TF.o
-                                        0x393 (size before relaxing)
- .debug_str     0x000000000000036b      0x438 /tmp/cc683bLD.o
-                                        0x70c (size before relaxing)
- .debug_str     0x00000000000007a3       0x8c /tmp/ccp24YwF.o
+.debug_str      0x0000000000000000      0x840
+ .debug_str     0x0000000000000000      0x31f /tmp/ccT6C5g6.o
+                                        0x341 (size before relaxing)
+ .debug_str     0x000000000000031f      0x495 /tmp/ccIx04f6.o
+                                        0x72c (size before relaxing)
+ .debug_str     0x00000000000007b4       0x8c /tmp/ccrkwgW2.o
                                         0x19d (size before relaxing)
 
 .comment        0x0000000000000000       0x43
- .comment       0x0000000000000000       0x43 /tmp/cc61D8TF.o
+ .comment       0x0000000000000000       0x43 /tmp/ccT6C5g6.o
                                          0x44 (size before relaxing)
- .comment       0x0000000000000043       0x44 /tmp/cc683bLD.o
- .comment       0x0000000000000043       0x44 /tmp/ccp24YwF.o
+ .comment       0x0000000000000043       0x44 /tmp/ccIx04f6.o
+ .comment       0x0000000000000043       0x44 /tmp/ccrkwgW2.o
 
 .ARM.attributes
                 0x0000000000000000       0x32
  .ARM.attributes
-                0x0000000000000000       0x32 /tmp/cc61D8TF.o
+                0x0000000000000000       0x32 /tmp/ccT6C5g6.o
  .ARM.attributes
-                0x0000000000000032       0x32 /tmp/cc683bLD.o
+                0x0000000000000032       0x32 /tmp/ccIx04f6.o
  .ARM.attributes
-                0x0000000000000064       0x32 /tmp/ccp24YwF.o
+                0x0000000000000064       0x32 /tmp/ccrkwgW2.o
 
-.debug_frame    0x0000000000000000      0x31c
- .debug_frame   0x0000000000000000       0x4c /tmp/cc61D8TF.o
- .debug_frame   0x000000000000004c      0x254 /tmp/cc683bLD.o
- .debug_frame   0x00000000000002a0       0x7c /tmp/ccp24YwF.o
+.debug_frame    0x0000000000000000      0x340
+ .debug_frame   0x0000000000000000       0x4c /tmp/ccT6C5g6.o
+ .debug_frame   0x000000000000004c      0x278 /tmp/ccIx04f6.o
+ .debug_frame   0x00000000000002c4       0x7c /tmp/ccrkwgW2.o
